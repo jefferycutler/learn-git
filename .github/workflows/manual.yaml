@@ -18,8 +18,8 @@ on:
         default: 'n'
 
 jobs:
-  deploy:
-    name: Deploy Scripts
+  deploy-creds:
+    name: Deploy Creds
     runs-on: self-hosted
     steps:
       - name: Scripts update test
@@ -27,4 +27,14 @@ jobs:
         
       - name: Creds update test
         run: echo "Update creds =  ${{ github.event.inputs.updateCreds }}"
+        
+      - name: Check out the code
+        uses: actions/checkout@v2
+        
+  deploy-scripts:
+    name: Deploy Scripts
+    runs-on: self-hosted
+    steps:
+      - name: show checkout
+        run: ls -lha $GITHUB_WORKSPACE
         
