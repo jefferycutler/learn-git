@@ -33,6 +33,7 @@ jobs:
         
   deploy-scripts:
     name: Deploy Scripts
+    needs: [deploy-creds]
     runs-on: self-hosted
     steps:
       - name: show checkout
