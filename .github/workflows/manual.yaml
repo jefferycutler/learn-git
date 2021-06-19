@@ -18,24 +18,37 @@ on:
         default: 'n'
 
 jobs:
-  deploy-creds:
-    name: Deploy Creds
+
+  pull-code:
     runs-on: self-hosted
     steps:
-      - name: Scripts update test
-        run: echo "Update scripts = ${{ github.event.inputs.updateScripts }}"
-        
-      - name: Creds update test
-        run: echo "Update creds =  ${{ github.event.inputs.updateCreds }}"
-        
-      - name: Check out the code
+      - name: pull github
         uses: actions/checkout@v2
+    
+  deploy-creds:
+    runs-on: self-hosted
+    needs: pull-code
+    steps:
+      - if: ${{ github.event.inputs.updateCreds }} == 'y'
+        name: test creds
+        run: |
+          echo "Creds update flag is yes"
+          ls -lha $GITHUB_WORKSPACE
+
+#      - name: Scripts update test
+#        run: echo "Update scripts = ${{ github.event.inputs.updateScripts }}"
+        
+#      - name: Creds update test
+#        run: echo "Update creds =  ${{ github.event.inputs.updateCreds }}"
         
   deploy-scripts:
     name: Deploy Scripts
-    needs: [deploy-creds]
+    needs: [pull-code,deploy-creds]
     runs-on: self-hosted
     steps:
-      - name: show checkout
-        run: ls -lha $GITHUB_WORKSPACE
+      - if: ${{ github.event.inputs.updateScripts }} == 'y'
+        name: test scripts
+        run: |
+          echo "Scripts update flag is yes"
+          ls -lha $GITHUB_WORKSPACE
         
