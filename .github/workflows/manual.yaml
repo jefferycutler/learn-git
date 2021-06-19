@@ -1,0 +1,30 @@
+##################################################################
+# Manual Workflow - to experiment with workflow_dispatch
+##################################################################
+
+name: Manually Deploy Main Branch
+
+# Only trigger workflow on updates to main branch
+on: 
+  workflow_dispatch:
+    inputs:
+      updateScripts:
+        description: 'Should scripts be updated y/n?'
+        required: false
+        default: 'y'
+      updateCreds:
+        description: 'Should creds be updated y/n?'
+        required: false
+        default: 'n'
+
+jobs:
+  deploy:
+    name: Deploy Scripts
+    runs-on: self-hosted
+    steps:
+      - name: Scripts update test
+        run: echo "Update scripts = ${{ github.event.inputs.updateScripts }}"
+        
+      - name: Creds update test
+        run: echo "Update creds =  ${{ github.event.inputs.updateCreds }}"
+        
