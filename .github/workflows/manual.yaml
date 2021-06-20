@@ -29,26 +29,20 @@ jobs:
     runs-on: self-hosted
     needs: pull-code
     steps:
-      - if: ${{ github.event.inputs.updateCreds == 'y' }}
+      - if: github.event.inputs.updateCreds == 'y' 
         name: test creds
         run: |
           echo "Creds update flag is yes"
-          ls -lha $GITHUB_WORKSPACE
-
-#      - name: Scripts update test
-#        run: echo "Update scripts = ${{ github.event.inputs.updateScripts }}"
-        
-#      - name: Creds update test
-#        run: echo "Update creds =  ${{ github.event.inputs.updateCreds }}"
+          cp -rvf $GITHUB_WORKSPACE/creds $HOME/dh/creds
         
   deploy-scripts:
     name: Deploy Scripts
     needs: [pull-code,deploy-creds]
     runs-on: self-hosted
     steps:
-      - if: ${{ github.event.inputs.updateScripts == 'y' }}
+      - if: github.event.inputs.updateScripts == 'y' 
         name: test scripts
         run: |
           echo "Scripts update flag is yes"
-          ls -lha $GITHUB_WORKSPACE
+          cp -rvf $GITHUB_WORKSPACE/scripts $HOME/dh/scripts
         
