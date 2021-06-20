@@ -33,6 +33,7 @@ jobs:
         name: test creds
         run: |
           echo "Creds update flag is yes"
+          umask u=rw,g=r,o=
           mkdir -p $HOME/dh/creds/
           cp -rvf $GITHUB_WORKSPACE/creds/* $HOME/dh/creds/
           mv --backup=numbered $HOME/dh/creds/template.yaml $HOME/dh/creds/dhcreds.yaml
@@ -48,6 +49,7 @@ jobs:
         name: test scripts
         run: |
           echo "Scripts update flag is yes"
+          umask u=rwx,g=r,o=
           mkdir -p $HOME/dh/scripts/
           cp -rvf $GITHUB_WORKSPACE/scripts/* $HOME/dh/scripts/
         
