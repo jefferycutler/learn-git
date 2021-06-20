@@ -33,6 +33,7 @@ jobs:
         name: test creds
         run: |
           echo "Creds update flag is yes"
+          mkdir -p $HOME/dh/creds/
           cp -rvf $GITHUB_WORKSPACE/creds/* $HOME/dh/creds/
           mv --backup=numbered $HOME/dh/creds/template.yaml $HOME/dh/creds/dhcreds.yaml
           sed -i "s/<<sqlusr1>>/${{ secrets.CREDS_SQLUSR1 }}/g" $HOME/dh/creds/dhcreds.yaml
@@ -47,5 +48,6 @@ jobs:
         name: test scripts
         run: |
           echo "Scripts update flag is yes"
+          mkdir -p $HOME/dh/scripts/
           cp -rvf $GITHUB_WORKSPACE/scripts/* $HOME/dh/scripts/
         
