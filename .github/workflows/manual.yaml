@@ -34,6 +34,9 @@ jobs:
         run: |
           echo "Creds update flag is yes"
           cp -rvf $GITHUB_WORKSPACE/creds $HOME/dh/creds
+          mv --backup=numbered $HOME/dh/creds/template.yaml $HOME/dh/creds/dhcreds.yaml
+          sed -i "s/<<sqlusr1>>/${{ secrets.CREDS_SQLUSR1 }}/g" $HOME/dh/creds/dhcreds.yaml
+          sed -i "s/<<sqlpwd1>>/${{ secrets.CREDS_SQLPWD1 }}/g" $HOME/dh/creds/dhcreds.yaml
         
   deploy-scripts:
     name: Deploy Scripts
