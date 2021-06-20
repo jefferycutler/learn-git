@@ -1,0 +1,6 @@
+---
+# Template for Datahub credentials file
+database:
+  dhmysql:
+    user: <<sqlusr1>>
+    pwd: <<sqlpwd1>>
