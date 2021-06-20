@@ -33,7 +33,6 @@ jobs:
         name: test creds
         run: |
           echo "Creds update flag is yes"
-          umask u=rw,g=r,o=
           mkdir -p $HOME/dh/creds/
           cp -rvfp $GITHUB_WORKSPACE/creds/* $HOME/dh/creds/
           mv --backup=numbered $HOME/dh/creds/template.yaml $HOME/dh/creds/dhcreds.yaml
