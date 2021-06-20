@@ -35,10 +35,11 @@ jobs:
           echo "Creds update flag is yes"
           umask u=rw,g=r,o=
           mkdir -p $HOME/dh/creds/
-          cp -rvf $GITHUB_WORKSPACE/creds/* $HOME/dh/creds/
+          cp -rvfp $GITHUB_WORKSPACE/creds/* $HOME/dh/creds/
           mv --backup=numbered $HOME/dh/creds/template.yaml $HOME/dh/creds/dhcreds.yaml
           sed -i "s/<<sqlusr1>>/${{ secrets.CREDS_SQLUSR1 }}/g" $HOME/dh/creds/dhcreds.yaml
           sed -i "s/<<sqlpwd1>>/${{ secrets.CREDS_SQLPWD1 }}/g" $HOME/dh/creds/dhcreds.yaml
+          chmod 640 $HOME/dh/creds/dhcreds.yaml
         
   deploy-scripts:
     name: Deploy Scripts
@@ -49,7 +50,6 @@ jobs:
         name: test scripts
         run: |
           echo "Scripts update flag is yes"
-          umask u=rwx,g=r,o=
           mkdir -p $HOME/dh/scripts/
-          cp -rvf $GITHUB_WORKSPACE/scripts/* $HOME/dh/scripts/
-        
+          cp -rvfp $GITHUB_WORKSPACE/scripts/* $HOME/dh/scripts/
+          chmod -R o-rwx $HOME/dh/scripts/*
