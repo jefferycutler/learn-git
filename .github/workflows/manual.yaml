@@ -47,5 +47,5 @@ jobs:
         name: test scripts
         run: |
           echo "Scripts update flag is yes"
-          cp -rvf $GITHUB_WORKSPACE/scripts/* $HOME/dh/scripts/*
+          cp -rvf $GITHUB_WORKSPACE/scripts/* $HOME/dh/scripts/
         
